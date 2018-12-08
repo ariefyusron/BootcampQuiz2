@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { FlatList,TouchableOpacity } from 'react-native';
-import { Container, Text, Input, Row, Col, Content, Button, Item, List, ListItem } from 'native-base';
+import { FlatList,TouchableOpacity,StyleSheet } from 'react-native';
+import { Container, Text, Input, Row, Col, Content, Button, Item, List, ListItem, Header, Title } from 'native-base';
 
 export default class App extends Component {
 
@@ -36,12 +36,15 @@ export default class App extends Component {
   render() {
     return (
       <Container>
-        <Content>
+        <Header style={styles.header}>
+          <Title style={{color:'black'}}>TO DO APP</Title>
+        </Header>
+        <Content style={{marginTop:5}}>
           <Row style={{justifyContent:'center'}}>
-            <Col style={{flex:0.9}}>
+            <Col style={{flex:0.98}}>
               <Item style={{borderBottomColor:'white'}}>
-                <Input value={this.state.set} onChangeText={(text)=>this.set(text)} placeholder='Type to add to do List' style={{backgroundColor:'red',}} />
-                <Button onPress={this.add} style={{height:'100%'}}>
+                <Input value={this.state.set} onSubmitEditing={this.add} onChangeText={(text)=>this.set(text)} placeholder='Type to add to do List' style={styles.input} />
+                <Button onPress={this.add} style={styles.button}>
                   <Text>Add</Text>
                 </Button>
               </Item>
@@ -51,9 +54,9 @@ export default class App extends Component {
             data={this.state.data}
             renderItem={
               ({item, index}) =>
-                <ListItem style={{paddingBottom:0,paddingTop:0,height:50}}>
-                  <TouchableOpacity style={{flex:1,height:100+'%',justifyContent:'center'}} onLongPress={()=>this.delete(index)}>
-                    <Text style={{backgroundColor:'red',width:100+'%'}}>{item}</Text>
+                <ListItem style={styles.listitem}>
+                  <TouchableOpacity style={styles.touch} onLongPress={()=>this.delete(index)}>
+                    <Text style={{width:100+'%'}}>{item}</Text>
                   </TouchableOpacity>
                 </ListItem>
             }
@@ -63,3 +66,32 @@ export default class App extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  header: {
+    alignItems:'center',
+    backgroundColor:'white'
+  },
+  input: {
+    backgroundColor:'#F8F8FF',
+    height:'80%',
+    borderRadius:10
+  },
+  button: {
+    height:'80%',
+    alignSelf:'center',
+    borderRadius:10,
+    marginLeft:5,
+    backgroundColor:'grey'
+  },
+  listitem: {
+    paddingBottom:0,
+    paddingTop:0,
+    height:50
+  },
+  touch: {
+    flex:1,
+    height:100+'%',
+    justifyContent:'center'
+  },
+});
