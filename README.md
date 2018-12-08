@@ -1,2 +1,2 @@
-# BootcampQuiz2
-Belajar React Native
+# React Native
+Quiz 2
